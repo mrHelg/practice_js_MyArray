@@ -1,2 +1,10 @@
-const myArray = new MyArray(1, 4, 7, 14, 5, 45, 7, 88);
-console.log(myArray.filter(bigTen));
+let myArray = new MyArray(10, 11, 12, 13, 14, 15, 16, 17);
+myArray = new MyArray(16, 17);
+console.log(myArray);
+console.log(myArray.shift());
+console.log(myArray.shift());
+console.log(myArray);
+console.log(myArray.shift());
+console.log(myArray);
+
+
