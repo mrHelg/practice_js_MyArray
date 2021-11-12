@@ -1,10 +1,3 @@
-let myArray = new MyArray(10, 11, 12, 13, 14, 15, 16, 17);
-myArray = new MyArray(16, 17);
-console.log(myArray);
-console.log(myArray.shift());
-console.log(myArray.shift());
-console.log(myArray);
-console.log(myArray.shift());
-console.log(myArray);
-
-
+const arr1 = new MyArray(1, 2, 3, 4);
+const arr2 = new MyArray(5, 6, 7, 8);
+console.log(arr1.concat(arr2, 9, 10, true));

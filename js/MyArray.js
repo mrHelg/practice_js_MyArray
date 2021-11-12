@@ -25,12 +25,18 @@ function MyArrayProto() {
   };
 
   this.forEach = function (func) {
+    if (typeof func !== 'function') {
+      throw new SyntaxError(func + ' is not a function');
+    }
     for (let i = 0; i < this.length; i++) {
       func(this[i], i, this);
     }
   };
 
   this.some = function (func) {
+    if (typeof func !== 'function') {
+      throw new SyntaxError(func + ' is not a function');
+    }
     for (let i = 0; i < this.length; i++) {
       if (func(this[i], i, this)) {
         return true;
@@ -40,6 +46,9 @@ function MyArrayProto() {
   };
 
   this.every = function (func) {
+    if (typeof func !== 'function') {
+      throw new SyntaxError(func + ' is not a function');
+    }
     for (let i = 0; i < this.length; i++) {
       if (func(this[i], i, this) === false) {
         return false;
@@ -49,6 +58,9 @@ function MyArrayProto() {
   };
 
   this.filter = function (func) {
+    if (typeof func !== 'function') {
+      throw new SyntaxError(func + ' is not a function');
+    }
     const result = new MyArray();
     for (let i = 0; i < this.length; i++) {
       if (func(this[i], i, this)) {
@@ -77,8 +89,8 @@ function MyArrayProto() {
       return;
     }
     const item = this[0];
-    for (let i = 0; i < this.length-1; i++) {
-      this[i] = this[i+1];
+    for (let i = 0; i < this.length - 1; i++) {
+      this[i] = this[i + 1];
     }
     this.length--;
     delete this[this.length];
@@ -86,15 +98,41 @@ function MyArrayProto() {
   };
 
   this.concat = function () {
-    return;
+    const result = new MyArray();
+    this.forEach((item) => result.push(item));
+    if (arguments.length > 0) {
+      for (let i = 0; i < arguments.length; i++) {
+        const arg = arguments[i];
+        if (arg instanceof MyArray) {
+          arg.forEach((item) => result.push(item));
+        } else {
+          result.push(arg);
+        }
+      }
+    }
+    return result;
   };
 
   this.reverse = function () {
-    return;
+    if (this.length > 1) {
+      for (let i = 0; i < Math.floor(this.length / 2); i++) {
+        const item = this[i];
+        this[i] = this[this.length - 1 - i];
+        this[this.length - 1 - i] = item;
+      }
+    }
+    return this;
   };
 
-  this.map = function () {
-    return;
+  this.map = function (func) {
+    if (typeof func !== 'function') {
+      throw new SyntaxError(func + ' is not a function');
+    }
+    const result = new MyArray();
+    if (this.length !== 0) {
+      this.forEach((item) => result.push(func(item)));
+    }
+    return result;
   };
 }
 
